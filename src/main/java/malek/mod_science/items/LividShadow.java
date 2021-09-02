@@ -1,7 +1,10 @@
 package malek.mod_science.items;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.world.World;
 
 public class LividShadow extends Shadow{
 
@@ -16,6 +19,10 @@ public class LividShadow extends Shadow{
     }
     public static void setOwner(ServerPlayerEntity owner1){
         owner = owner1;
+    }
+
+    public void onDrop(ItemStack stack, World world, PlayerEntity player) {
+        this.owner = player.getServer().getPlayerManager().getPlayer(player.getUuid());
     }
 
 }

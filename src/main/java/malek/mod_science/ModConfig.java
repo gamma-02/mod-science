@@ -15,8 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static malek.mod_science.ModScience.MOD_ID;
-import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
-import static me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip;
 
 @Config(name = MOD_ID)
 public class ModConfig implements ConfigData {
@@ -29,7 +27,7 @@ public class ModConfig implements ConfigData {
 
     private static class MadnessFeature {
         @Tooltip
-        public boolean enable = true;
+        public static boolean enable = true;
         @Tooltip
         public double madnessThreshold = 0.0;
     }

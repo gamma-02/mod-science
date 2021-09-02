@@ -1,15 +1,15 @@
 package malek.mod_science.mixin;
 
 import com.mojang.authlib.GameProfile;
+import malek.mod_science.client.sounds.ModSounds;
 import malek.mod_science.components.player.madness.Madness;
 import malek.mod_science.components.player.madness.Whispers;
 import malek.mod_science.components.player.timeout.Timeout;
-import malek.mod_science.worlds.dimensions.LSpaceDimension;
-import malek.mod_science.worlds.dimensions.TheRoomDimension;
 import malek.mod_science.items.ModItems;
-import malek.mod_science.client.sounds.ModSounds;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
+import malek.mod_science.worlds.dimensions.LSpaceDimension;
+import malek.mod_science.worlds.dimensions.TheRoomDimension;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
@@ -33,8 +33,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
     @Shadow
     public abstract ServerWorld getServerWorld();
 
-
-
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
         super(world, pos, yaw, profile);
     }
@@ -50,6 +48,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickMixin(CallbackInfo ci) {
+        if(this.getInventory().contains(ModItems.LIVID_SHADOW.getDefaultStack())){
+
+        }
         ServerPlayerEntity player = MixinUtil.cast(this);
         if (world.getRegistryKey().equals(LSpaceDimension.WORLD_KEY)) {
             player.setNoGravity(true);

@@ -225,6 +225,9 @@ public final class ModItems {
     @RegistryEntry("livid_shadow")
     public static final BucketItem LIVID_SHADOW = new LividShadow(STILL_SHADOW, new FabricItemSettings().group(MOD_SCIENCE).maxCount(64), null);
 
+    @RegistryEntry("stygian_scissors")
+    public static final SwordItem SHADOW_SCISSORS = new SwordItem(ToolMaterials.IRON, 7, 10F, new FabricItemSettings().group(MOD_SCIENCE).maxCount(1));
+
     private static void registerEvents() {
         ItemEntityTickEvent.EVENT.register(itemEntity -> {
             if (itemEntity.getStack().isOf(MOLTEN_CORE)
