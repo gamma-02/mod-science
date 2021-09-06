@@ -220,10 +220,10 @@ public final class ModItems {
     public static final Item FRACTAL = new Item(DEFAULT);
 
     @RegistryEntry("shadow")
-    public static final BucketItem SHADOW = new Shadow(STILL_SHADOW, new FabricItemSettings().group(MOD_SCIENCE).maxCount(64));
+    public static final Item SHADOW = new Shadow(new FabricItemSettings().group(MOD_SCIENCE).maxCount(64));
 
     @RegistryEntry("livid_shadow")
-    public static final BucketItem LIVID_SHADOW = new LividShadow(STILL_SHADOW, new FabricItemSettings().group(MOD_SCIENCE).maxCount(64), null);
+    public static final Item LIVID_SHADOW = new LividShadow( new FabricItemSettings().group(MOD_SCIENCE).maxCount(64));
 
     @RegistryEntry("stygian_scissors")
     public static final SwordItem SHADOW_SCISSORS = new SwordItem(ToolMaterials.IRON, 7, 10F, new FabricItemSettings().group(MOD_SCIENCE).maxCount(1));

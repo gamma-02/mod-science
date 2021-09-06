@@ -1,7 +1,6 @@
 package malek.mod_science.mixin;
 
 import malek.mod_science.fluids.ModFluidBlocks;
-import malek.mod_science.items.LividShadow;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
 import net.minecraft.block.FluidBlock;
@@ -9,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -158,8 +156,7 @@ public abstract class EntityMixin implements LoggerInterface {
     public void killedMixin(ServerWorld world, LivingEntity other, CallbackInfo ci){
         if(other instanceof PlayerEntity) {
             other.dropItem(ModItems.LIVID_SHADOW);
-            LividShadow.setOwner((ServerPlayerEntity) other);
-        }else if (other instanceof LivingEntity &! (other instanceof PlayerEntity)){
+        }else if (other instanceof LivingEntity && !(other instanceof PlayerEntity)){
             other.dropItem(ModItems.SHADOW);
         }
     }
