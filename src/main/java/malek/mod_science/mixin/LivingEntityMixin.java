@@ -210,7 +210,14 @@ public abstract class LivingEntityMixin extends Entity implements LoggerInterfac
 
 
     }
+    @Inject(method = "onDeath", at = @At("HEAD"))
+    public void OnDeath(DamageSource source, CallbackInfo ci){
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        if(source.getAttacker().getItemsHand() == ModItems.SCISSORS.getDefaultStack().getItem()){
+            if(!(livingEntity instanceof PlayerEntity)) livingEntity.dropItem(ModItems.SHADOW);
 
+        }
+    }
 
 
 

@@ -1,7 +1,6 @@
 package malek.mod_science.mixin;
 
 import malek.mod_science.event.ItemEntityTickEvent;
-import malek.mod_science.fluids.ModFluidBlocks;
 import malek.mod_science.items.ModItems;
 import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
@@ -10,7 +9,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +30,7 @@ public abstract class ItemEntityMixin extends Entity implements LoggerInterface 
     int shadowTimer;
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     public void tickMixin(CallbackInfo ci) {
+
         ActionResult result = ItemEntityTickEvent.EVENT.invoker().doTick(MixinUtil.cast(this));
         switch (result) {
             case CONSUME:
@@ -39,15 +38,18 @@ public abstract class ItemEntityMixin extends Entity implements LoggerInterface 
             case SUCCESS:
                 ci.cancel();
         }
-        if(this.onGround && (this.getStack().getItem() == ModItems.SHADOW || this.getStack().getItem() == ModItems.LIVID_SHADOW)){
+        if(this.onGround && (this.getStack().getItem() == ModItems.SHADOW || this.getStack().getItem() == ModItems.LIVID_SHADOW) && !(world.isClient())){
             shadowTimer++;
             if(shadowTimer == 80){
-                world.setBlockState(new BlockPos(this.getPos()), ModFluidBlocks.SHADOWFLUID.getDefaultState());
+                //summon shadow entity
                 this.kill();
                 shadowTimer = 0;
             }
         }
+        if(this.getStack().getItem())
     }
+
+
 
 
     @Override

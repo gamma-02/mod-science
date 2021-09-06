@@ -10,6 +10,7 @@ import malek.mod_science.util.general.LoggerInterface;
 import malek.mod_science.util.general.MixinUtil;
 import malek.mod_science.worlds.dimensions.LSpaceDimension;
 import malek.mod_science.worlds.dimensions.TheRoomDimension;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.MessageType;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
@@ -134,6 +135,14 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Lo
         }
 
 
+    }
+
+    @Inject(method = "onDeath", at = @At("HEAD"))
+    public void PlayerDeathMixin(DamageSource source, CallbackInfo ci){
+        if(source.getAttacker().getItemsHand() == ModItems.SCISSORS.getDefaultStack().getItem()){
+            this.dropItem(ModItems.LIVID_SHADOW);
+
+        }
     }
 
 }
